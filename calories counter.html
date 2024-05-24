@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calories Counter Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .food-item input {
+            width: 45%;
+            padding: 5px;
+        }
+        .total-calories {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calories Counter Tool</h1>
+    <div id="food-list">
+        <div class="food-item">
+            <input type="text" placeholder="Food Item" id="food1">
+            <input type="number" placeholder="Calories" id="calories1">
+        </div>
+    </div>
+    <button onclick="addFoodItem()">Add Another Food Item</button>
+    <button onclick="calculateTotalCalories()">Calculate Total Calories</button>
+    <div class="total-calories" id="total-calories">
+        Total Calories: 0
+    </div>
+</div>
+
+<script>
+    let foodItemCount = 1;
+
+    function addFoodItem() {
+        foodItemCount++;
+        const foodList = document.getElementById('food-list');
+        const newFoodItem = document.createElement('div');
+        newFoodItem.className = 'food-item';
+        newFoodItem.innerHTML = `
+            <input type="text" placeholder="Food Item" id="food${foodItemCount}">
+            <input type="number" placeholder="Calories" id="calories${foodItemCount}">
+        `;
+        foodList.appendChild(newFoodItem);
+    }
+
+    function calculateTotalCalories() {
+        let totalCalories = 0;
+        for (let i = 1; i <= foodItemCount; i++) {
+            const caloriesInput = document.getElementById(`calories${i}`);
+            const calories = parseInt(caloriesInput.value);
+            if (!isNaN(calories)) {
+                totalCalories += calories;
+            }
+        }
+        document.getElementById('total-calories').innerText = `Total Calories: ${totalCalories}`;
+    }
+</script>
+
+</body>
+</html>
